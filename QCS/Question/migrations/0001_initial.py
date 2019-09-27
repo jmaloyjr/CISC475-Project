@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
                 ('create_date', models.DateTimeField()),
                 ('modified_date', models.DateTimeField()),
                 ('version', models.IntegerField(default=1)),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='CreateQuestion.Course')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='CreateQuestion.Tag')),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Question.Course')),
+                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Question.Tag')),
             ],
         ),
     ]

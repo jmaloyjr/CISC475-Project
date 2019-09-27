@@ -3,5 +3,5 @@ from .models import *
 
 
 # Register your models here.
-myModels = [Question, Tag, Course]
-admin.site.register(myModels)
+root_admin = [Question, Tag, Course]
+admin.site.register(root_admin)
