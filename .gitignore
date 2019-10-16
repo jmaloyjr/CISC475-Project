@@ -65,3 +65,10 @@ typings/
 
 # Python Virtual Space
 venv
+
+# Python Virtual Space
+ve
+
+QCS/QCS/__pycache__/
+QCS/Question/__pycache__/
+QCS/Question/migrations/
