@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Question Catalog System{% endblock %}</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.css' %}">
+
+    <script src="{% static 'node_modules/angular/angular.js' %}" ></script>
+    <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}" ></script>
+    <script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}" ></script>
+    <script src="{% static 'node_modules/popper.js/dist/popper.min.js' %}" ></script>
+
+</head>
+
+<body>
+    <div class="container" ng-app="myApp">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% block script %}
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "question-catalog-system",
+  "version": "1.0.0",
+  "description": "Advanced Software Engineering group project.\r Question Catalog System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/udcymen/Question-Catalog-System.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/udcymen/Question-Catalog-System/issues"
+  },
+  "homepage": "https://github.com/udcymen/Question-Catalog-System#readme",
+  "dependencies": {
+    "angular": "^1.7.8",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.0"
+  }
+}

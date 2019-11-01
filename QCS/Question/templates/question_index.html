@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question Catalog System</title>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        {% if question_list %}
+            <ul>
+            {% for question in question_list %}
+                <li><a href="/question/{{ question.id }}">{{ question.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No questions are available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

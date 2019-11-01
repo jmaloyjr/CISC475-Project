@@ -63,12 +63,13 @@ typings/
 # Pycharm IDE
 .idea
 
-# Python Virtual Space
-venv
+# Python Virtual Eniroment
+.venv
 
-# Python Virtual Space
-ve
+# Django Migrations/Cache
+/QCS/Question/migrations/
+/QCS/QCS/__pycache__/
+/QCS/Question/__pycache__/
 
-QCS/QCS/__pycache__/
-QCS/Question/__pycache__/
-QCS/Question/migrations/
+# vs code setting
+.vscode/settings.json
