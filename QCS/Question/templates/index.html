@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Question Catalog System</title>
+{% extends 'base.html' %}
 
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
+{% block title %}Home{% endblock %}
 
-    <script src="/static/js/jquery-3.4.1.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-
-</head>
-
-<body>
-    <div class="container">
-        <h1> Main Index for Question App Page</h1>
-    </div>
-</body>
-</html>
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+{% endblock %}

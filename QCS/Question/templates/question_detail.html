@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Question Details{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    <div class="row">
+        <h1><b>Question</b>: {{ name }} <b>Version</b>: {{ version }}</h1>
+    </div>
+    <div class="row">
+        <h2><b>Author</b>: {{ author }}
+    </div>
+    <hr>
+    <br>
+    <div class="row">
+        <div>
+            <p>Description</p>
+            <p>{{ description }}</p>
+            <p>Instructions</p>
+            <p>{{ instruction }}</p>
+        </div>
+        <br>
+        <div>
+            <p>Topics</p>
+            <div ng-controller="topics">
+                <ol>
+                    <li ng-repeat="topic in showTopics">
+                        [[topic]]
+                    </li>
+                </ol>
+                <button id="showButton" ng-click="showAllTopics()">Show All</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        var myApp = angular.module('myApp', [], function ($interpolateProvider) {
+            $interpolateProvider.startSymbol('[[');
+            $interpolateProvider.endSymbol(']]');
+        });
+        myApp.controller('topics', function ($scope) {
+            $scope.allTopics = {{ topic|safe }};
+            $scope.showTopics = $scope.allTopics.slice(0, 5);
+            $scope.showAllTopics = function () {
+                if ($scope.showTopics.length == $scope.allTopics.length) {
+                    $scope.showTopics = $scope.allTopics.slice(0, 5)
+                    document.getElementById('showButton').innerHTML = "Show More";
+                } else {
+                    $scope.showTopics = $scope.allTopics;
+                    document.getElementById('showButton').innerHTML = "Show Less";
+                }
+            }
+        });
+    </script>
+{% endblock %}

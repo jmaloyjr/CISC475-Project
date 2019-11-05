@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Question Index{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if question_list %}
+            <ul>
+            {% for question in question_list %}
+                <li><a href="/question/{{ question.id }}">{{ question.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No questions are available.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title> Creating a new question for the catalog </title>
+</head>
+
+<body style="background-color: darkblue">
+    <h1 style="color:yellow"> Create Question </h1>
+    <div class="col-lg-9">
+        <br>
+        <br>
+        <div style="color:yellow"> Description:</div>
+        <textarea placeholder="Please enter the Description for this question" rows="10" cols="125"></textarea>
+        <div style="color:yellow"> Instruction: </div>
+        <textarea placeholder="BLAH BLAGH BLAJ" rows="10" cols="125"> </textarea>
+    </div>
+    <div class="col-lg-3" style="color:yellow;position: absolute; right:30px" >
+        <br>
+        <br>
+        <br>
+        <br>
+        <div> Question: <input style="color:black;"type="text" width=""> </div>
+        <br>
+        <br>
+        <div>Author: <input style="color:black;" type="text"></div>
+        <br>
+        <br>
+        <div> Course: <input style="color:black;" type="text"> </div>
+        <br>
+        <br>
+        <div> Difficulty: <input style="color:black;" type="number" min="0" max="10"> </div>
+        <br>
+        <br>
+        <div style="border: 2px;border-color: black;"> Type of question:
+            <select id="TypeList" style="color:black;">
+                <option value=""> </option>
+                <option value="Multiple Choice">Multiple Choice</option>
+                <option value="Short Answer">Short Answer</option>
+                <option value="Matching">Matching</option>
+            </select>
+        </div>
+        <br>
+        <br>
+        <button type="button"  data-toggle="modal" data-target="#example"
+            onclick="document.getElementById('id01').style.display = 'block' "  style="background-color:yellow;color: blue;">Click here for List of
+            Topic </button>
+        <br>
+        <br>
+        <br>
+        <div><input type="Submit" value="Submit Question"style="background-color:rgb(248, 252, 27);color: blue;"></div>
+
+    </div>
+
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container" style="height:350px;width: 800px;">
+                <span onclick="document.getElementById('id01').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                    <h1>Check each box that applies to this question</h1>
+                <input type="checkbox">For-loop <br>
+                <input type="checkbox">Recursion<br>
+                <input type="checkbox">Big-O<br>
+                <input type="submit" style="position: absolute;bottom: 10px; left:390px" value="Submit Topics"
+                    onclick="document.getElementById('id01').style.display = 'none'" style="right:20px;">
+            </div>
+        </div>
+    </div>
+<div>
+    <img src= "https://i0.wp.com/fanapeel.com/wp-content/uploads/logo_-university-of-delaware-fightin-blue-hens-ud.png?ssl=1" style="height: 65px; width: 65px;position: absolute;top: 25px;right: 25px;">
+</div>
+
+
+</body>
+<script>
+</script>
+
+</html>
