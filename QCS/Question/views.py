@@ -72,8 +72,15 @@ def question_detail(request, question_ref):
     question = get_question(question_ref)
 
     if request.method == "GET":    
-        form = QuestionForm(instance=question)
-        return render(request, 'question_detail.html', {'form': form})
+        info = {
+            'name': question.name,
+            'version': question.version,
+            'author': question.author,
+            'description': question.description,
+            'instruction': question.instruction,
+            'topic': [topic.name for topic in list(question.topic.all())]
+        }
+        return render(request, 'question_detail.html', info)
 
     elif request.method == "POST":
         # TODO Update

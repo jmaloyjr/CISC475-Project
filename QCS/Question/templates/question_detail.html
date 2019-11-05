@@ -1,31 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}Question Page{% endblock %}
+{% block title %}Question Details{% endblock %}
 
 {% block content %}
     {% csrf_token %}
     <div class="row">
-        <h1><b>Question</b>: human_readable_id <b>Version</b>: version</h1>
+        <h1><b>Question</b>: {{ name }} <b>Version</b>: {{ version }}</h1>
     </div>
     <div class="row">
-        <h2><b>Author</b>: author <b>Course</b>: course</h2>
+        <h2><b>Author</b>: {{ author }}
     </div>
     <hr>
     <br>
     <div class="row">
         <div>
-            <p>Name</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu semper arcu, id porttitor lorem.
-                Quisque et nunc at eros molestie semper. Duis mollis ultrices urna, et hendrerit felis aliquam sit
-                amet. Cras ac varius ante. Nullam lobortis augue nunc, non vulputate tortor blandit in. Curabitur a
-                tincidunt augue, ac pellentesque dui. Integer nec massa purus. Nullam vitae odio justo. Aliquam
-                erat volutpat.</p>
+            <p>Description</p>
+            <p>{{ description }}</p>
             <p>Instructions</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu semper arcu, id porttitor lorem.
-                Quisque et nunc at eros molestie semper. Duis mollis ultrices urna, et hendrerit felis aliquam sit
-                amet. Cras ac varius ante. Nullam lobortis augue nunc, non vulputate tortor blandit in. Curabitur a
-                tincidunt augue, ac pellentesque dui. Integer nec massa purus. Nullam vitae odio justo. Aliquam
-                erat volutpat.</p>
+            <p>{{ instruction }}</p>
         </div>
         <br>
         <div>
@@ -50,7 +42,7 @@
             $interpolateProvider.endSymbol(']]');
         });
         myApp.controller('topics', function ($scope) {
-            $scope.allTopics = ['For Loops', 'Algorithms', 'If-Then', 'Automata', 'Data Structures', 'Cats', 'Dogs'];
+            $scope.allTopics = {{ topic|safe }};
             $scope.showTopics = $scope.allTopics.slice(0, 5);
             $scope.showAllTopics = function () {
                 if ($scope.showTopics.length == $scope.allTopics.length) {

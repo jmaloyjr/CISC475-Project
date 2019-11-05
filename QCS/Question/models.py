@@ -11,7 +11,7 @@ class Course(models.Model):
     # Regular Fields
     name = models.CharField(max_length=256)
     code = models.PositiveSmallIntegerField(default=100, validators=[MinValueValidator(100), MaxValueValidator(999)])
-    section = models.PositiveSmallIntegerField(default=100, validators=[MinValueValidator(100), MaxValueValidator(999)])
+    section = models.PositiveSmallIntegerField(default=100, validators=[MinValueValidator(0), MaxValueValidator(999)])
     year = models.PositiveSmallIntegerField(default=datetime.now().year, validators=[MinValueValidator(1000), MaxValueValidator(9999)])
 
     # Semester Choice - ENUM
@@ -43,18 +43,18 @@ class Course(models.Model):
 
 class QuestionTopic(models.Model):
     # Regular Fields
-    topic = models.CharField(max_length=256)
+    name = models.CharField(max_length=256, unique=True)
 
     def __str__(self):
-        return self.topic
+        return self.name
 
 
 class QuestionType(models.Model):
     # Regular Fields
-    type = models.CharField(max_length=256)
+    name = models.CharField(max_length=256, unique=True)
 
     def __str__(self):
-        return self.type
+        return self.name
 
 
 class QuestionChangeLog(models.Model):
@@ -69,7 +69,6 @@ class QuestionChangeLog(models.Model):
 
     def __str__(self):
         return str(self.question) + ": Version " + str(self.previous_version)
-
     
 
 class Question(models.Model):

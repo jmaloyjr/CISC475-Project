@@ -67,9 +67,8 @@ typings/
 .venv
 
 # Django Migrations/Cache
-/QCS/Question/migrations/
-/QCS/QCS/__pycache__/
-/QCS/Question/__pycache__/
+**/migrations/
+**/__pycache__/
 
 # vs code setting
 .vscode/settings.json
