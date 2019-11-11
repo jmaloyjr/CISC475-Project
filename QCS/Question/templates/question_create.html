@@ -1,8 +1,3 @@
-{% extends 'base.html' %}
-
-{% block title %}Question Create{% endblock %}
-
-{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,35 +41,29 @@
     </script>
 </head>
 
-<body style="background-color: darkblue">
-    <h1 style="color:yellow"> Create Question </h1>
-    <div class="col-lg-9">
+<body >
+    <h1> Create Question </h1>
+    <div class="rows">
         <br>
-        <br>
-        <div style="color:yellow"> Description:</div>
-        <textarea placeholder="Please enter the Description for this question" rows="10" cols="125"></textarea>
-        <div style="color:yellow"> Instruction: </div>
-        <textarea placeholder="BLAH BLAGH BLAJ" rows="10" cols="125"> </textarea>
-    </div>
-    <div class="col-lg-3" style="color:yellow;position: absolute; right:30px">
-        <br>
+        <div> Description:</div>
+        <textarea placeholder="Please enter the Description for this question" rows="7" cols="175">"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?"
+        </textarea>
 
-        <br>
+        <div> Instruction: </div>
+        <textarea placeholder="BLAH BLAGH BLAJ" rows="7" cols="175"> </textarea>
+    </div>
+    <div class = "col-lg-4">
         <br>
         <div> Question: <input style="color:black;" type="text" width=""> </div>
         <br>
-        <br>
         <div>Author: <input style="color:black;" type="text"></div>
         <br>
-        <br>
-        <button " type="button" data-toggle="modal" data-target="#example"
-            onclick="document.getElementById('id02').style.display = 'block' "
-            style="background-color:yellow;color: blue;">Click here for a list of courses </button>
-        <br><div id ="Courses">Course(s): </div>
-        <br>
+        <button  type="button" data-toggle="modal" data-target="#example"
+            onclick="document.getElementById('id02').style.display = 'block' ">
+            Click here for a list of courses </button>
+        <div id ="Courses">Course(s): </div>
         <br>
         <div> Difficulty: <input style="color:black;" type="number" min="0" max="10"> </div>
-        <br>
         <br>
         <div style="border: 2px;border-color: black;"> Type of question:
             <select id="TypeList" style="color:black;">
@@ -84,17 +73,15 @@
                 <option value="Matching">Matching</option>
             </select>
         </div>
-        <br>
+
         <br>
         <button type="button" data-toggle="modal" data-target="#example"
             onclick="document.getElementById('id01').style.display = 'block' "
-            style="background-color:yellow;color: blue;">Click here for List of
+            >Click here for List of
             Topics </button>
-            <div id = 'Topics'>Topics :</div>    
+            <div id = 'Topics'>Topics :</div>
         <br>
-        <br>
-        <br>
-        <div><input type="Submit" value="Submit Question" style="background-color:rgb(248, 252, 27);color: blue;"
+        <div><input style = "height:75px;width: 150px;"type="Submit" value="Submit Question"
             ></div>
 
     </div>
@@ -139,13 +126,7 @@
 
 </body>
 <script>
-    
+
 </script>
 
 </html>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save">
-    </form>
-{% endblock %}
