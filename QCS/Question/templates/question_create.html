@@ -1,11 +1,120 @@
 {% extends 'base.html' %}
 
-{% block title %}Question Create{% endblock %}
-
+{% block title %}Create New Question{% endblock %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Save">
-    </form>
+{% csrf_token %}
+<body >
+    <h1> Create Question </h1>
+    <div class="rows">
+        <br>
+        <div> Description:</div>
+        <textarea placeholder="Please enter the Description for this question" rows="7" cols="175">
+        </textarea>
+        
+        <div> Instruction: </div>
+        <textarea placeholder="BLAH BLAGH BLAJ" rows="7" cols="175"> </textarea>
+    </div>
+    <div class = "col-lg-4">
+        <br>
+        <div> Question: <input style="color:black;" type="text" width=""> </div>
+        <br>
+        <div>Author: <input style="color:black;" type="text"></div>
+        <br>
+        <button  type="button" data-toggle="modal" data-target="#example"
+            onclick="document.getElementById('id02').style.display = 'block' ">
+            Click here for a list of courses </button>
+        <div id ="Courses">Course(s): </div>
+        <br>
+        <div> Difficulty: <input style="color:black;" type="number" min="0" max="10"> </div>
+        <br>
+        <div style="border: 2px;border-color: black;"> Type of question:
+            <select id="TypeList" style="color:black;">
+                <option value=""> </option>
+                <option value="Multiple Choice">Multiple Choice</option>
+                <option value="Short Answer">Short Answer</option>
+                <option value="Matching">Matching</option>
+            </select>
+        </div>
+    
+        <br>
+        <button type="button" data-toggle="modal" data-target="#example"
+            onclick="document.getElementById('id01').style.display = 'block' "
+            >Click here for List of
+            Topics </button>
+            <div id = 'Topics'>Topics :</div> 
+        <br>  
+        <div><input style = "height:75px;width: 150px;"type="Submit" value="Submit Question" 
+            ></div>
+
+    </div>
+
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container" style="height:350px;width: 800px;">
+                <span onclick="document.getElementById('id01').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                <h1>Check each box that applies to this question:</h1>
+                <div id = "topic_list">
+                <input class=checkbox type="checkbox" value= "For-loop">For-loop <br>
+                <input class=checkbox type="checkbox" value= "Recursion">Recursion<br>
+                <input class=checkbox type="checkbox" value = "Big-O">Big-O<br>
+                <input id=store_topic type="submit" style="position: absolute;bottom: 10px; left:390px"
+                    value="Submit Topics" onclick="printtopics()" style="right:20px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="id02" class="w3-modal">
+        <div class="w3-modal-content">
+            <div id=loopdiv class="w3-container" style="height:350px;width: 800px;">
+                <span onclick="document.getElementById('id02').style.display='none'"
+                    class="w3-button w3-display-topright">&times;</span>
+                <h1>Check each box that applies to this question:</h1>
+                <div id = course_list>
+                    <input class=checkbox value= "course1" type="checkbox">Course1<br>
+                    <input class=checkbox value= "course2" type="checkbox">Course2<br>
+                    <input class=checkbox type="checkbox" value="course3">Course3<br>
+                </div>
+                <input id=store_topic type="submit" style="position: absolute;bottom: 10px; left:390px"
+                    value="Submit Topics" onclick="printcourses()">
+            </div>
+        </div>
+    </div>
+    <div>
+        <img src="https://i0.wp.com/fanapeel.com/wp-content/uploads/logo_-university-of-delaware-fightin-blue-hens-ud.png?ssl=1"
+            style="height: 65px; width: 65px;position: absolute;top: 25px;right: 25px;">
+    </div>
+
+
+</body>
 {% endblock %}
+
+{% block script %}
+<script>
+    function printcourses(){
+        var list = document.getElementById("course_list");
+        var values = list.getElementsByTagName("input");
+        document.getElementById("Courses").innerHTML = "Courses: ";
+        for(var i = 0; i < values.length;i++){
+            var tmp = values[i];
+            if(tmp.checked == 1){
+                document.getElementById("Courses").innerHTML += tmp.value + " ";
+            }
+        }
+        document.getElementById('id02').style.display = 'none';
+    }
+    function printtopics(){
+        var list = document.getElementById("topic_list");
+        var values = list.getElementsByTagName("input");
+        document.getElementById("Topics").innerHTML = "Topics: ";
+        for(var i = 0; i < values.length;i++){
+            var tmp = values[i];
+            if(tmp.checked == 1){
+                document.getElementById("Topics").innerHTML += tmp.value + " ";
+            }
+        }
+        document.getElementById('id01').style.display = 'none';
+    }
+
+</script>
+{% endblock %} 
