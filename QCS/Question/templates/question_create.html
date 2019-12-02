@@ -5,34 +5,33 @@
 {% csrf_token %}
 <body >
     <h1> Create Question </h1>
+<form method = 'POST' >
     <div class="rows">
         <br>
         <div> Description:</div>
-        <textarea placeholder="Please enter the Description for this question" rows="7" cols="175">
+        <textarea id = "description" class ="form-control" placeholder="Please enter the Description for this question" rows="7" cols="175" ng-model = "description">
         </textarea>
         
         <div> Instruction: </div>
-        <textarea placeholder="BLAH BLAGH BLAJ" rows="7" cols="175"> </textarea>
+        <textarea id = "instruction" class = "form-control" placeholder="BLAH BLAGH BLAJ" rows="7" cols="175" ng-model = "instruction"> </textarea>
     </div>
     <div class = "col-lg-4">
         <br>
-        <div> Question: <input style="color:black;" type="text" width=""> </div>
+        <div> Question: <input id = "question" style="color:black;" type="text" width="" class="form-control" ng-model = "name"> </div>
         <br>
-        <div>Author: <input style="color:black;" type="text"></div>
+        <div>Author: <input id = "author" style="color:black;" type="text" class="form-control" ng-model = "author"></div>
         <br>
         <button  type="button" data-toggle="modal" data-target="#example"
             onclick="document.getElementById('id02').style.display = 'block' ">
             Click here for a list of courses </button>
         <div id ="Courses">Course(s): </div>
         <br>
-        <div> Difficulty: <input style="color:black;" type="number" min="0" max="10"> </div>
+        <div> Difficulty: <input id = "difficulty" style="color:black;" type="number" min="0" max="10" class="form-control" ng-model = "difficulty"> </div>
         <br>
         <div style="border: 2px;border-color: black;"> Type of question:
-            <select id="TypeList" style="color:black;">
-                <option value=""> </option>
-                <option value="Multiple Choice">Multiple Choice</option>
-                <option value="Short Answer">Short Answer</option>
-                <option value="Matching">Matching</option>
+            <select id="TypeList" style="color:black;"
+            class="form-control" ng-model = "type">
+                <option value="" *ngFor = "let topic of topics" [ngValue]= "topic" >{{topic}} </option>
             </select>
         </div>
     
@@ -54,7 +53,7 @@
                 <span onclick="document.getElementById('id01').style.display='none'"
                     class="w3-button w3-display-topright">&times;</span>
                 <h1>Check each box that applies to this question:</h1>
-                <div id = "topic_list">
+                <div id = "topic_list" class = "form-control">
                 <input class=checkbox type="checkbox" value= "For-loop">For-loop <br>
                 <input class=checkbox type="checkbox" value= "Recursion">Recursion<br>
                 <input class=checkbox type="checkbox" value = "Big-O">Big-O<br>
@@ -70,7 +69,7 @@
                 <span onclick="document.getElementById('id02').style.display='none'"
                     class="w3-button w3-display-topright">&times;</span>
                 <h1>Check each box that applies to this question:</h1>
-                <div id = course_list>
+                <div id = course_list class = "form-control">
                     <input class=checkbox value= "course1" type="checkbox">Course1<br>
                     <input class=checkbox value= "course2" type="checkbox">Course2<br>
                     <input class=checkbox type="checkbox" value="course3">Course3<br>
@@ -84,7 +83,7 @@
         <img src="https://i0.wp.com/fanapeel.com/wp-content/uploads/logo_-university-of-delaware-fightin-blue-hens-ud.png?ssl=1"
             style="height: 65px; width: 65px;position: absolute;top: 25px;right: 25px;">
     </div>
-
+</form> 
 
 </body>
 {% endblock %}
