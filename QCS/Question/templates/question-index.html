@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block title %}Question Index{% endblock %}
+
+{% block content %}
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font: 16px Arial;
+    }
+    h2 {
+      margin: 0 auto;
+      padding-bottom: 1cm;
+    }
+    h3 {
+      padding-top: 0.5cm;
+    }
+    h4 {
+      width: 35%;
+      margin: auto;
+      border: 1px;
+      border-style: solid;
+      border-color: black;
+      border-radius: 25px;
+      text-align: center;
+    }
+    /*the container must be positioned relative:*/
+    .autocomplete {
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      display: block;
+      border: 1px;
+      border-style: solid;
+      border-color: black;
+    }
+    .autocomplete2 {
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      display: block;
+      border: 1px;
+      border-style: solid;
+      border-color: black;
+    }
+    input {
+      border: 1px solid transparent;
+      background-color: #f1f1f1;
+      padding: 10px;
+      font-size: 16px;
+    }
+    input[type="text"] {
+      background-color: #f1f1f1;
+      width: 100%;
+    }
+    input[type="submit"] {
+      background-color: DodgerBlue;
+      color: #fff;
+      cursor: pointer;
+    }
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      /*position the autocomplete items to be the same width as the container:*/
+      top: 100%;
+      left: 0;
+      right: 0;
+    }
+    .autocomplete-items div {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border-bottom: 1px solid #d4d4d4;
+    }
+    /*when hovering an item:*/
+    .autocomplete-items div:hover {
+      background-color: #e9e9e9;
+    }
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+      background-color: DodgerBlue !important;
+      color: #ffffff;
+    }
+</style>
+<h2>Question Search</h2>
+
+  <!--Make sure the form has the autocomplete function switched off:-->
+  <div class='row'>
+    <div class=col-lg-4>
+      <div> Question Name:
+        <input id="myInputQuestion" type="text" name="myQuestion">
+      </div>
+      <div> Course Number:
+        <input id="myInputCourse" type="text" name="myCourse">
+      </div>
+      <div>Author:
+        <input id="myInputAuthor" type="text" name="myAuthor" placeholder="(Prof. or TA)">
+      </div>
+      <div>Topic:
+        <input id="myInputTopic" type="text" name="myTopic" placeholder="(i.e. Recursion)">
+      </div>
+      <button
+        style="margin-left: 100px; margin-top: 50px; border-radius: 25px; border: 1px; border-style: solid; border-color: black;">Search
+        For Question</button>
+    </div>
+    <div class="col-lg-8">
+      <div id="Quest_result" style="text-align: center;">
+        {% if question_list %}
+          <ul>
+          {% for question in question_list %}
+              <li><a href="/question/{{ question.id }}">{{ question.name }}</a></li>
+          {% endfor %}
+          </ul>
+      {% else %}
+          <p>No questions are available.</p>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function autocomplete(inp, arr) {
+      /*the autocomplete function takes two arguments,
+      the text field element and an array of possible autocompleted values:*/
+      var currentFocus;
+      /*execute a function when someone writes in the text field:*/
+      inp.addEventListener("input", function (e) {
+        $('#myInputQuestion').attr('readonly', 'readonly');
+        $('#myInputCourse').attr('readonly', 'readonly');
+        $('#myInputAuthor').attr('readonly', 'readonly');
+        $('#myInputTopic').attr('readonly', 'readonly');
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false; }
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            /*create a DIV element for each matching element:*/
+            b = document.createElement("DIV");
+            /*make the matching letters bold:*/
+            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].substr(val.length);
+            /*insert a input field that will hold the current array item's value:*/
+            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            /*execute a function when someone clicks on the item value (DIV element):*/
+            b.addEventListener("click", function (e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+            });
+            a.appendChild(b);
+          }
+        }
+        for (; ;) {
+          if (inp == document.getElementById("myInputQuestion")) {
+            $('#myInputCourse').attr('readonly', 'readonly');
+            $('#myInputAuthor').attr('readonly', 'readonly');
+            $('#myInputTopic').attr('readonly', 'readonly');
+            $('#myInputQuestion').removeAttr('readonly');
+            break;
+          }
+          else if (inp == document.getElementById("myInputCourse")) {
+            $('#myInputQuestion').attr('readonly', 'readonly');
+            $('#myInputAuthor').attr('readonly', 'readonly');
+            $('#myInputTopic').attr('readonly', 'readonly');
+            $('#myInputCourse').removeAttr('readonly');
+            break;
+          }
+          else if (inp == document.getElementById("myInputAuthor")) {
+            $('#myInputQuestion').attr('readonly', 'readonly');
+            $('#myInputCourse').attr('readonly', 'readonly');
+            $('#myInputTopic').attr('readonly', 'readonly');
+            $('#myInputAuthor').removeAttr('readonly');
+            break;
+          }
+          else if (inp == document.getElementById("myInputTopic")) {
+            $('#myInputCourse').attr('readonly', 'readonly');
+            $('#myInputAuthor').attr('readonly', 'readonly');
+            $('#myInputQuestion').attr('readonly', 'readonly');
+            $('#myInputTopic').removeAttr('readonly');
+            break;
+          }
+        }
+      });
+      /*execute a function presses a key on the keyboard:*/
+      inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+          increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) { //up
+          /*If the arrow UP key is pressed,
+          decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+      });
+      function addActive(x) {
+        /*a function to classify an item as "active":*/
+        if (!x) return false;
+        /*start by removing the "active" class on all items:*/
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        /*add class "autocomplete-active":*/
+        x[currentFocus].classList.add("autocomplete-active");
+      }
+      function removeActive(x) {
+        /*a function to remove the "active" class from all autocomplete items:*/
+        for (var i = 0; i < x.length; i++) {
+          x[i].classList.remove("autocomplete-active");
+        }
+      }
+      function closeAllLists(elmnt) {
+        /*close all autocomplete lists in the document,
+        except the one passed as an argument:*/
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+          if (elmnt != x[i] && elmnt != inp) {
+            x[i].parentNode.removeChild(x[i]);
+          }
+        }
+      }
+      /*execute a function when someone clicks in the document:*/
+      document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+      });
+    }
+    /*Questions*/
+    var questions = {{ question_titles|safe }};
+    /*Courses*/
+    var courses = {{ courses|safe }};
+    /*Authors*/
+    var authors = {{ authors|safe }};
+    /*Topics*/
+    var topics = {{ topics|safe }};
+    /*initiate the autocomplete function on the "myInput_____" elements, and pass along the questions array as possible autocomplete values:*/
+    autocomplete(document.getElementById("myInputQuestion"), questions);
+    autocomplete(document.getElementById("myInputCourse"), courses);
+    autocomplete(document.getElementById("myInputAuthor"), authors);
+    autocomplete(document.getElementById("myInputTopic"), topics);
+  </script>
+{% endblock %}

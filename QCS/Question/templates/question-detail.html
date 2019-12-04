@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Question Details{% endblock %}
+{% block content %}
+{% csrf_token %}
+    <div class="container" ng-app="myApp">
+        <div class="row">
+            <h1><b>Question</b>: {{ name }} <b>Version</b>: {{ version }}</h1>
+        </div>
+        <div class="row">
+            <h2><b>Author</b>: {{ author }} <b>Course</b>: course</h2>
+        </div>
+        <hr>
+        <br>
+        <div class="row">
+            <div>
+                <p>Description</p>
+            </div>
+            <div>
+                <p>{{ description }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <p>Instructions</p>
+            </div>
+            <div>
+                <p>{{ instruction }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <p>Topics</p>
+                <div ng-controller="topics">
+                    <ol>
+                        <li ng-repeat="topic in showTopics" class="viewScreenTopics">
+                            [[topic]]
+                        </li>
+                    </ol>
+                    <button id="showButton" class="btn btn-outline-primary" ng-click="showAllTopics()">Show All</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="difficulty">
+            <div>
+                <p>Difficulty</p>
+                <div ng-controller="difficulty">
+                    <div>
+                        <div id="diffNum">[[diff]]</div>
+                        <div>/100 [[textDiff]]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form method="POST" action="{% url 'quetion_create' %}">
+                {% csrf_token %}
+                <button type="submit" id="editBtn" class="btn btn-outline-primary">Edit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+    var myApp = angular.module('myApp', [], function ($interpolateProvider) {
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
+    });
+    myApp.controller('topics', function ($scope) {
+        $scope.allTopics = {{ topic | safe }};
+        $scope.showTopics = $scope.allTopics.slice(0, 5);
+        $scope.showAllTopics = function () {
+            if ($scope.showTopics.length == $scope.allTopics.length) {
+                $scope.showTopics = $scope.allTopics.slice(0, 5)
+                document.getElementById('showButton').innerHTML = "Show More";
+            } else {
+                $scope.showTopics = $scope.allTopics;
+                document.getElementById('showButton').innerHTML = "Show Less";
+            }
+        }
+    });
+    myApp.controller('difficulty', function ($scope) {
+        $scope.diff = {{ difficulty }};
+        $scope.colors = ['red', 'orange', 'yellow', 'green'];
+        $scope.textDiffAll = ['Very Hard', 'Hard', 'Medium', 'Easy'];
+        $scope.textDiff;
+        if ($scope.diff <= 10) {
+            document.getElementById('diffNum').style.color = $scope.colors[0];
+            $scope.textDiff = $scope.textDiffAll[0];
+        } else if ($scope.diff <= 40) {
+            document.getElementById('diffNum').style.color = $scope.colors[1];
+            $scope.textDiff = $scope.textDiffAll[1];
+        } else if ($scope.diff <= 70) {
+            document.getElementById('diffNum').style.color = $scope.colors[2];
+            $scope.textDiff = $scope.textDiffAll[2];
+        } else {
+            document.getElementById('diffNum').style.color = $scope.colors[3];
+            $scope.textDiff = $scope.textDiffAll[3];
+        }
+    });
+</script>
+{% endblock %}
