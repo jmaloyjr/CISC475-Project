@@ -3,11 +3,59 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-    <li> <a href="{% url 'social:begin' 'google-oauth2' %}">Login in With Google<a></li>
-</form>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  height: 100vh;
+}
+h3 {
+    color : black !important;
+}
+label {
+    color : black !important;
+}
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -100px;
+}
+</style>
+
+<body>
+    <div id="login">
+        <h3 class="text-center pt-5">Question Catalog System</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                            <h3 class="text-center" style="padding: 10px;">Login</h3>
+                            <div id="form-box" class="row justify-content-center align-items-center">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                
+                            </div> 
+                            <div id="submit-box" class="row justify-content-center align-items-right">
+                                <ul>
+                                    <button type="submit">Login</button>
+                                    <a href="{% url 'social:begin' 'google-oauth2' %}">Login in With Google<a>
+                                </ul> 
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 {% endblock %}
