@@ -1,9 +1,12 @@
 from django.urls import path
-from . import views
+from .views.QuestionIndex import quetion_index
+from .views.QuestionCreate import quetion_create
+from .views.QuestionDetails import question_detail
+
 
 urlpatterns = [
-    path('', views.quetion_index, name='quetion_index'),
-    path('create', views.quetion_create, name='quetion_create'),
-    path('<int:question_ref>', views.question_detail, name='question_detail'),
-    path('<slug:question_ref>', views.question_detail, name='question_detail')
+    path('', quetion_index, name='quetion_index'),
+    path('create', quetion_create, name='quetion_create'),
+    path('<int:question_ref>', question_detail, name='question_detail'),
+    path('<slug:question_ref>', question_detail, name='question_detail')
 ]
