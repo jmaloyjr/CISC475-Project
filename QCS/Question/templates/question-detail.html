@@ -3,51 +3,42 @@
 {% block title %}Question Details{% endblock %}
 {% block content %}
 {% csrf_token %}
-    <div class="container" ng-app="myApp">
+
+<body>
+    <div class="container" ng-app="myApp" id="container">
         <div class="row">
-            <h1><b>Question</b>: {{ name }} <b>Version</b>: {{ version }}</h1>
+            <h1><b>Question</b>: {{name}}</h1>
         </div>
         <div class="row">
-            <h2><b>Author</b>: {{ author }} <b>Course</b>: course</h2>
+            <h5 style="margin-right: 100px;"><b>Author</b>: {{author}}</h5><h5><b>Course</b>: course</h5>
+        </div>
+        <div class="row">
+            <h1 style="font-size: .9em; color: grey;"><b>Version</b>: {{version}}</h1>
         </div>
         <hr>
         <br>
-        <div class="row">
-            <div>
-                <p>Description</p>
-            </div>
-            <div>
-                <p>{{ description }}</p>
-            </div>
+        <div class="row" id="description">
+            <p>{{description}}</p>
         </div>
-        <div class="row">
-            <div>
-                <p>Instructions</p>
-            </div>
-            <div>
-                <p>{{ instruction }}</p>
-            </div>
+        <div class="row" id="instructions">
+            <p>{{instruction}}</p>
         </div>
+        <div ng-controller="topics">
         <div class="row">
-            <div>
-                <p>Topics</p>
-                <div ng-controller="topics">
-                    <ol>
-                        <li ng-repeat="topic in showTopics" class="viewScreenTopics">
-                            [[topic]]
-                        </li>
-                    </ol>
-                    <button id="showButton" class="btn btn-outline-primary" ng-click="showAllTopics()">Show All</button>
-                </div>
+            <div class="col-3" ng-repeat="topic in showTopics" style="display: inline-block; padding: 0;">
+                <span class="badge badge-secondary">[[topic]]</span>
             </div>
+         </div>
+        <div class="row" >
+            <button id="showButton" class="btn btn-outline-primary" ng-click="showAllTopics()">Show All</button>
+        </div>
         </div>
         <div class="row" id="difficulty">
             <div>
-                <p>Difficulty</p>
                 <div ng-controller="difficulty">
                     <div>
                         <div id="diffNum">[[diff]]</div>
-                        <div>/100 [[textDiff]]</div>
+                        <div>/ 100 [[textDiff]]</div>
                     </div>
                 </div>
             </div>
@@ -58,7 +49,11 @@
                 <button type="submit" id="editBtn" class="btn btn-outline-primary">Edit</button>
             </form>
         </div>
+        <div class="row">
+            <p style="font-size: .9em; color:grey;">Forked From: {{forked_from}}</p>
+        </div>
     </div>
+</body>
 {% endblock %}
 
 
@@ -68,21 +63,26 @@
         $interpolateProvider.startSymbol('[[');
         $interpolateProvider.endSymbol(']]');
     });
+
     myApp.controller('topics', function ($scope) {
         $scope.allTopics = {{ topic | safe }};
-        $scope.showTopics = $scope.allTopics.slice(0, 5);
-        $scope.showAllTopics = function () {
-            if ($scope.showTopics.length == $scope.allTopics.length) {
-                $scope.showTopics = $scope.allTopics.slice(0, 5)
-                document.getElementById('showButton').innerHTML = "Show More";
-            } else {
-                $scope.showTopics = $scope.allTopics;
-                document.getElementById('showButton').innerHTML = "Show Less";
-            }
+
+    $scope.showTopics = $scope.allTopics.slice(0, 4);
+    $scope.showAllTopics = function () {
+
+        if ($scope.showTopics.length == $scope.allTopics.length) {
+            $scope.showTopics = $scope.allTopics.slice(0, 4)
+            document.getElementById('showButton').innerHTML = "Show More";
+
+        } else {
+            $scope.showTopics = $scope.allTopics;
+            document.getElementById('showButton').innerHTML = "Show Less";
         }
+    }
     });
+
     myApp.controller('difficulty', function ($scope) {
-        $scope.diff = {{ difficulty }};
+        $scope.diff = 100;
         $scope.colors = ['red', 'orange', 'yellow', 'green'];
         $scope.textDiffAll = ['Very Hard', 'Hard', 'Medium', 'Easy'];
         $scope.textDiff;
@@ -99,6 +99,9 @@
             document.getElementById('diffNum').style.color = $scope.colors[3];
             $scope.textDiff = $scope.textDiffAll[3];
         }
+
+
+
     });
 </script>
 {% endblock %}

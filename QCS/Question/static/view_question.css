@@ -1,0 +1,13 @@
+#container > div {
+    margin: 20px;
+}
+
+#difficulty div {
+    display: inline-block;
+}
+
+.btn {
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
