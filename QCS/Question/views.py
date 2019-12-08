@@ -78,7 +78,8 @@ def question_detail(request, question_ref):
             'author': question.author,
             'description': question.description,
             'instruction': question.instruction,
-            'topic': [topic.name for topic in list(question.topic.all())]
+            'topic': [topic.name for topic in list(question.topic.all())],
+            'forked_from' : question.forked_from
         }
         return render(request, 'question_detail.html', info)
 

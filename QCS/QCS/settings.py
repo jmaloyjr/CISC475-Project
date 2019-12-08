@@ -90,11 +90,11 @@ WSGI_APPLICATION = 'QCS.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '3.82.73.201',
-        'PORT': '9999'
+        'NAME': 'questionbank',
+        'USER': 'questions',
+        'PASSWORD': 'Qu3st10ns',
+        'HOST': 'cisc474.cis.udel.edu',
+        'PORT': '5432'
     }
 }
 
